@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const bycript = require("bcryptjs");
 
 const { user_game } = require("./models");
 const { user_game_biodata } = require("./models");
@@ -34,16 +35,17 @@ app.get("/users", (req, res, next) => {
 });
 
 app.post("/user", (req, res, next) => {
-  user_game
-    .create({
-      email: req.body.email,
-      password: req.body.password,
+  const { email, password } = req.body;
+  bycript
+    .hash(password, 12)
+    .then((hashed) => {
+      user_game.create({ email, password: hashed });
     })
-    .then((user) => {
-      res.status(201).json({ message: "Berhasil menambah user", user });
+    .then((result) => {
+      res.status(201).json({ message: "Success", result });
     })
     .catch((error) =>
-      res.status(402).json({ message: "Gagal menambah user", error })
+      res.status(402).json({ message: "Error create user game", error })
     );
 });
 
