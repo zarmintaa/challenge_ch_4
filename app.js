@@ -5,6 +5,7 @@ const morgan = require("morgan");
 
 const { user_game } = require("./models");
 const { user_game_biodata } = require("./models");
+const { user_game_history } = require("./models");
 
 const port = 3000;
 
@@ -150,6 +151,62 @@ app.put("/biodata/:id", (req, res, next) => {
 
 app.delete("/biodata/:id", (req, res, next) => {
   user_game_biodata
+    .destroy({ where: { id: req.params.id } })
+    .then((result) =>
+      res.status(201).json({ message: "Berhasil menghapus data", result })
+    )
+    .catch((error) =>
+      res.status(401).json({ message: "Gagal menghapus data", error })
+    );
+});
+
+// history
+
+app.get("/history", (req, res, next) => {
+  user_game_history
+    .findAll()
+    .then((history) => {
+      res
+        .status(200)
+        .json({ message: "Berhasil mengambil history user", history });
+    })
+    .catch((error) =>
+      res.status(402).json({ message: "Gagal mengambil history user", error })
+    );
+});
+
+app.get("/history/:id", (req, res, next) => {
+  user_game_history
+    .findByPk(req.params.id)
+    .then((history) => {
+      res
+        .status(200)
+        .json({ message: "Berhasil mengambil history user", history });
+    })
+    .catch((error) =>
+      res.status(402).json({ message: "Gagal mengambil history user", error })
+    );
+});
+
+app.post("/history", (req, res, next) => {
+  user_game_history
+    .create({
+      waktu_login: req.body.waktu_login,
+      waktu_logout: req.body.waktu_logout,
+      skor: req.body.skor,
+    })
+    .then((history) => {
+      res
+        .status(201)
+        .json({ message: "Berhasil menambah history user", history });
+    })
+    .catch((error) =>
+      res.status(401).json({ message: "Gagal menambah history user", error })
+    );
+});
+
+app.delete("/history/:id", (req, res, next) => {
+  user_game_history
     .destroy({ where: { id: req.params.id } })
     .then((result) =>
       res.status(201).json({ message: "Berhasil menghapus data", result })
