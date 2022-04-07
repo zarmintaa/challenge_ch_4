@@ -61,16 +61,17 @@ app.get("/user/:id", (req, res, next) => {
 });
 
 app.put("/user/:id", (req, res, next) => {
-  user_game
-    .update(
-      {
-        email: req.body.email,
-        passowrd: req.body.password,
-      },
-      { where: { id: req.params.id } }
-    )
-    .then((user) => {
-      res.status(201).json({ message: "Berhasil mengupdate user", user });
+  const { email, password } = req.body;
+  bycript
+    .hash(password, 12)
+    .then((hashedPassword) => {
+      user_game.update(
+        { email, password: hashedPassword },
+        { where: { id: req.params.id } }
+      );
+    })
+    .then((result) => {
+      res.status(201).json({ message: "Berhasil mengupdate user", result });
     })
     .catch((error) => {
       res.status(401).json({ message: "Gagal mengupdate user", error });
