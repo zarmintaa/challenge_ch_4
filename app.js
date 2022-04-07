@@ -33,4 +33,10 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/biodata", userBiodataRoutes);
 app.use("/api/v1/user/history", userHistoryRoutes);
 
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  res.status(error.status).json({ message: error.message });
+});
+
 app.listen(port, () => console.log(`App running on port ${port}`));
