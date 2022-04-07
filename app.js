@@ -8,6 +8,10 @@ const { user_game } = require("./models");
 const { user_game_biodata } = require("./models");
 const { user_game_history } = require("./models");
 
+const userRoutes = require("./routes/UserGame");
+const userBiodataRoutes = require("./routes/UserGameBiodata");
+const userHistoryRoutes = require("./routes/UserGameHistory");
+
 const port = 3000;
 
 app.use(morgan("dev"));
@@ -22,6 +26,12 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+// /api/v1/user/all
+
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/user/biodata", userBiodataRoutes);
+app.use("/api/v1/user/history", userHistoryRoutes);
 
 app.get("/users", (req, res, next) => {
   user_game
