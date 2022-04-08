@@ -7,7 +7,7 @@ const userRoutes = require("./routes/UserGame");
 const userBiodataRoutes = require("./routes/UserGameBiodata");
 const userHistoryRoutes = require("./routes/UserGameHistory");
 
-const port = 4000;
+const port = 3000;
 
 app.use(morgan("dev"));
 app.use(express.json());

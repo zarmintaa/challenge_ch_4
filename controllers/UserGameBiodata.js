@@ -45,11 +45,14 @@ exports.getSingleBiodata = (req, res, next) => {
 
 exports.updateBiodata = (req, res, next) => {
   user_game_biodata
-    .update({
-      nama: req.body.nama,
-      bio: req.body.bio,
-      gender: req.body.gender,
-    })
+    .update(
+      {
+        nama: req.body.nama,
+        bio: req.body.bio,
+        gender: req.body.gender,
+      },
+      { where: { id: req.params.id } }
+    )
     .then((biodata) => {
       res.status(201).json({
         message: "Success mengupdate biodata",

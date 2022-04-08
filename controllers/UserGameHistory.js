@@ -4,6 +4,7 @@ exports.getAllHistory = (req, res, next) => {
   user_game_history
     .findAll()
     .then((history) => {
+      console.log(history);
       res
         .status(200)
         .json({ message: "Berhasil mengambil history user", history });
@@ -27,11 +28,15 @@ exports.getSingleHistory = (req, res, next) => {
 };
 
 exports.createHistory = (req, res, next) => {
+  const { skor } = req.body;
+  console.log({
+    skor,
+  });
   user_game_history
     .create({
-      waktu_login: req.body.waktu_login,
-      waktu_logout: req.body.waktu_logout,
-      skor: req.body.skor,
+      login,
+      logout,
+      skor,
     })
     .then((history) => {
       res
@@ -44,12 +49,14 @@ exports.createHistory = (req, res, next) => {
 };
 
 exports.updateHistory = (req, res, next) => {
+  const { skor } = req.body;
   user_game_history
-    .update({
-      nama: req.body.nama,
-      bio: req.body.bio,
-      gender: req.body.gender,
-    })
+    .update(
+      {
+        skor,
+      },
+      { where: { id: req.params.id } }
+    )
     .then((biodata) => {
       res.status(201).json({
         message: "Success mengupdate biodata",

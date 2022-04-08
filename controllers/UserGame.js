@@ -20,7 +20,7 @@ exports.createUser = (req, res, next) => {
       user_game.create({ email, password: hashed });
     })
     .then((result) => {
-      res.status(201).json({ message: "Success", result });
+      res.status(201).json({ message: "Success", data: { email, password } });
     })
     .catch((error) =>
       res.status(402).json({ message: "Error create user game", error })
@@ -31,7 +31,7 @@ exports.getSingleUser = (req, res, next) => {
   user_game
     .findByPk(req.params.id)
     .then((user) => {
-      res.status(200).json({ message: "Berhasil menambah user", user });
+      res.status(200).json({ message: "Berhasil mengambil user", user });
     })
     .catch((error) =>
       res.status(402).json({ message: "Gagal mengambil user", error })
@@ -49,7 +49,12 @@ exports.updateUser = (req, res, next) => {
       );
     })
     .then((result) => {
-      res.status(201).json({ message: "Berhasil mengupdate user", result });
+      res
+        .status(201)
+        .json({
+          message: "Berhasil mengupdate user",
+          data: { email, password },
+        });
     })
     .catch((error) => {
       res.status(401).json({ message: "Gagal mengupdate user", error });

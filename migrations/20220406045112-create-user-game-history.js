@@ -8,15 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      waktu_login: {
-        type: Sequelize.DATE,
-      },
-      waktu_logout: {
-        type: Sequelize.DATE,
-      },
-      skor: {
-        type: Sequelize.STRING,
-      },
+      skor: { allowNull: false, type: Sequelize.STRING },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
