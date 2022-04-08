@@ -45,6 +45,7 @@ app.get("/", (req, res, next) => {
     ],
   });
 });
+
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/user/biodata", userBiodataRoutes);
 app.use("/api/v1/user/history", userHistoryRoutes);
