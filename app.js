@@ -22,7 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// /api/v1/user/all
 app.get("/", (req, res, next) => {
   res.status(200).json({
     message: "Welcome to User Game API",
@@ -46,8 +45,11 @@ app.get("/", (req, res, next) => {
   });
 });
 
+// /api/v1/user/...
 app.use("/api/v1/user", userRoutes);
+// /api/v1/user/biodata/...
 app.use("/api/v1/user/biodata", userBiodataRoutes);
+// /api/v1/user/history/...
 app.use("/api/v1/user/history", userHistoryRoutes);
 
 app.use((req, res, next) => {
