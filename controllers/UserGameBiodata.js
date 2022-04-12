@@ -1,6 +1,7 @@
 const { user_game_biodata } = require("../models");
 
 exports.getAllBiodata = (req, res, next) => {
+  const parameter = { where: { user_id: req.body.id } };
   user_game_biodata
     .findAll()
     .then((user) => {
@@ -19,6 +20,7 @@ exports.createBiodata = (req, res, next) => {
       nama: req.body.nama,
       bio: req.body.bio,
       gender: req.body.gender,
+      user_id: req.body.id,
     })
     .then((biodata) => {
       res
@@ -51,7 +53,7 @@ exports.updateBiodata = (req, res, next) => {
         bio: req.body.bio,
         gender: req.body.gender,
       },
-      { where: { id: req.params.id } }
+      { where: { user_id: req.params.id } }
     )
     .then((biodata) => {
       res.status(201).json({

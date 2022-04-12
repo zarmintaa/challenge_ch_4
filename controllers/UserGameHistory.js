@@ -28,14 +28,10 @@ exports.getSingleHistory = (req, res, next) => {
 };
 
 exports.createHistory = (req, res, next) => {
-  const { skor } = req.body;
-  console.log({
-    skor,
-  });
+  const { skor, id } = req.body;
   user_game_history
     .create({
-      login,
-      logout,
+      user_id: id,
       skor,
     })
     .then((history) => {

@@ -7,7 +7,7 @@ const userRoutes = require("./routes/UserGame");
 const userBiodataRoutes = require("./routes/UserGameBiodata");
 const userHistoryRoutes = require("./routes/UserGameHistory");
 
-const port = 3000;
+const port = 6000;
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -20,29 +20,6 @@ app.use((req, res, next) => {
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
   );
   next();
-});
-
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    message: "Welcome to User Game API",
-    endpoint: [
-      "/api/v1/user/all",
-      "/api/v1/user/:id",
-      "/api/v1/user/create",
-      "/api/v1/user/:id/update",
-      "/api/v1/user/:id/delete",
-      "/api/v1/user/biodata/all",
-      "/api/v1/user/biodata/:id",
-      "/api/v1/user/biodata/create",
-      "/api/v1/user/biodata/:id/update",
-      "/api/v1/user/biodata/:id/delete",
-      "/api/v1/user/history/all",
-      "/api/v1/user/history/:id",
-      "/api/v1/user/history/create",
-      "/api/v1/user/history/:id/update",
-      "/api/v1/user/history/:id/delete",
-    ],
-  });
 });
 
 // /api/v1/user/...

@@ -8,7 +8,7 @@ exports.getAllUserGame = (req, res, next) => {
       res.status(200).json({ message: "Success", users });
     })
     .catch((error) =>
-      req.status(402).json({ message: "Error mengambil data user", error })
+      res.status(402).json({ message: "Error mengambil data user", error })
     );
 };
 
@@ -49,12 +49,10 @@ exports.updateUser = (req, res, next) => {
       );
     })
     .then((result) => {
-      res
-        .status(201)
-        .json({
-          message: "Berhasil mengupdate user",
-          data: { email, password },
-        });
+      res.status(201).json({
+        message: "Berhasil mengupdate user",
+        data: { email, password },
+      });
     })
     .catch((error) => {
       res.status(401).json({ message: "Gagal mengupdate user", error });
@@ -63,7 +61,7 @@ exports.updateUser = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
   user_game
-    .destroy({ where: { id: req.params.id } })
+    .destroy({ where: { user_id: req.params.id } })
     .then((user) => {
       res.status(201).json({ message: "Sukses menghapus data", user });
     })
